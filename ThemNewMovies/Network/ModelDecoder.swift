@@ -1,5 +1,5 @@
 //
-//  Decoder.swift
+//  ModelDecoder.swift
 //  ThemNewMovies
 //
 //  Created by David Freitas on 15/11/18.
@@ -8,13 +8,18 @@
 
 import UIKit
 
-class Decoder: NSObject {
+class ModelDecoder {
     
     // -----
     // Method used to decode network returned data into model structs
     // -----
     class func decodeJSON<T:Decodable>(withData data: Data) -> T? {
         let decoder = JSONDecoder()
+        
+        // Set up api date format
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
         do {
             let value = try decoder.decode(T.self, from: data)
