@@ -38,13 +38,14 @@ class ModelTests: XCTestCase {
             fatalError()
         }
         
-        let movie: Movie? = ModelDecoder.decodeJSON(withData: data)
-        
-        // Test decoding success
-        XCTAssertNotNil(movie)
-        
-        // Test decoded data
-        XCTAssertEqual(movie?.title, "The Seven Deadly Sins: Prisoners of the Sky")
+        do {
+            let movie: Movie = try ModelDecoder.decodeJSON(withData: data)
+            
+            // Test decoded data
+            XCTAssertEqual(movie.title, "The Seven Deadly Sins: Prisoners of the Sky")
+        } catch {
+            XCTFail()
+        }
     }
     
     // -----
@@ -85,13 +86,14 @@ class ModelTests: XCTestCase {
             fatalError()
         }
         
-        let upcoming: Upcoming? = ModelDecoder.decodeJSON(withData: data)
-        
-        // Test decoding success
-        XCTAssertNotNil(upcoming)
-        
-        // Test decoded data
-        XCTAssertEqual(upcoming?.totalPages, 14)
+        do {
+            let upcoming: UpcomingMovies = try ModelDecoder.decodeJSON(withData: data)
+            
+            // Test decoded data
+            XCTAssertEqual(upcoming.totalPages, 14)
+        } catch {
+            XCTFail()
+        }
     }
 
 }

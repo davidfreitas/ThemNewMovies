@@ -162,8 +162,8 @@
 		6E214B0D219E26BA003F3C62 /* ThemNewMoviesTests */ = {
 			isa = PBXGroup;
 			children = (
-				6E214B36219E3B2A003F3C62 /* NetworkTests.swift */,
 				6E214B46219E549D003F3C62 /* ModelTests.swift */,
+				6E214B36219E3B2A003F3C62 /* NetworkTests.swift */,
 				6E214B10219E26BA003F3C62 /* Info.plist */,
 			);
 			path = ThemNewMoviesTests;
