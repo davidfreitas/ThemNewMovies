@@ -1,5 +1,5 @@
 //
-//  Upcoming.swift
+//  UpcomingMovies.swift
 //  ThemNewMovies
 //
 //  Created by David Freitas on 15/11/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Upcoming: Codable {
+struct UpcomingMovies: Codable {
     
     let results: [Movie]
     let totalResults: Int

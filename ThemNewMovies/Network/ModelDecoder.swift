@@ -13,7 +13,7 @@ class ModelDecoder {
     // -----
     // Method used to decode network returned data into model structs
     // -----
-    class func decodeJSON<T:Decodable>(withData data: Data) -> T? {
+    class func decodeJSON<T:Decodable>(withData data: Data) throws -> T {
         let decoder = JSONDecoder()
         
         // Set up api date format
@@ -25,7 +25,7 @@ class ModelDecoder {
             let value = try decoder.decode(T.self, from: data)
             return value
         } catch {
-            return nil
+            throw error
         }
     }
 

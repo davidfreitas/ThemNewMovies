@@ -18,11 +18,12 @@ class HttpClient {
     // Wrapper method that allows the network engine to be easily replaceable
     // -----
     func request(_ url: URL, method: HTTPMethod, parameters: [String : Any]?, headers: [String : String]?, completion: @escaping (NetworkResult<Data>) -> Void) {
-        
+        // --
+        // Setup Alamofire to handle the network requests
+        // --
         // Convert our method value to the Alamofire enum
         guard let alamofireMethod = Alamofire.HTTPMethod(rawValue: method.rawValue) else {
-            completion(.error(RequestError.invalidMethod))
-            return
+            return completion(.error(RequestError.invalidMethod))
         }
         
         // Create alamofire request
