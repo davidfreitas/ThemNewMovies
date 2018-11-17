@@ -14,10 +14,9 @@ extension Date {
     // Method that returns a localized string representation
     // of time elapsed since/until the date
     // -----
-    func getElapsedTime() -> String {
+    func getElapsedTime(locale: Locale? = nil) -> String {
         
         var calendar = Calendar.current
-        // limit locale to the ones supported by the app
         calendar.locale = Locale(identifier: Bundle.main.preferredLocalizations[0])
         
         let formatter = DateComponentsFormatter()
@@ -37,11 +36,11 @@ extension Date {
             formatter.allowedUnits = [.day]
         } else {
             let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: Bundle.main.preferredLocalizations[0])
+            dateFormatter.locale = calendar.locale
             dateFormatter.dateStyle = .medium
             dateFormatter.doesRelativeDateFormatting = true
             
-            return dateFormatter.string(from: self)
+            return dateFormatter.string(from: self).lowercased()
         }
         
         // get timeInterval to avoid negative values

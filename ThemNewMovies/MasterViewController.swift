@@ -16,6 +16,20 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let service = MovieService()
+        service.getUpcoming { (result) in
+            switch result {
+            case .success(let upcoming):
+                for movie in upcoming.results {
+                    let vm = MovieViewModel(movie: movie)
+                    print("\(vm.releaseDate) (\(vm.releaseTimeFromNow))")
+                }
+                
+            case .error(let error):
+                print(error)
+            }
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
         navigationItem.leftBarButtonItem = editButtonItem
 
