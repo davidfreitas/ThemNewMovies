@@ -12,10 +12,11 @@ extension Date {
     
     // -----
     // Method that returns a localized string representation
-    // of time elapsed since/until the date
+    // of time elapsed since self, if in the past, or
+    // until self, if in the future
     // -----
-    func getElapsedTime(locale: Locale? = nil) -> String {
-        
+    func getElapsedTime() -> String {
+        // get formatter calendar
         var calendar = Calendar.current
         calendar.locale = Locale(identifier: Bundle.main.preferredLocalizations[0])
         
@@ -24,36 +25,41 @@ extension Date {
         formatter.maximumUnitCount = 1
         formatter.calendar = calendar
         
-        let intervalComponents = calendar.dateComponents([.year, .month, .weekOfYear, .day], from: self, to: Date())
+        // get time interval components
+        let today = Date()
+        let intervalComponents = calendar.dateComponents(
+            [.year, .month, .weekOfYear, .day],
+            from: self,
+            to: today)
         
         if let year = intervalComponents.year, abs(year) > 0 {
+            // date is at least 1 year away
             formatter.allowedUnits = [.year]
         } else if let month = intervalComponents.month, abs(month) > 0 {
+            // date is at least 1 month away
             formatter.allowedUnits = [.month]
         } else if let week = intervalComponents.weekOfYear, abs(week) > 0 {
+            // date is at least 1 week away
             formatter.allowedUnits = [.weekOfMonth]
         } else if let day = intervalComponents.day, abs(day) > 0 {
+            // date is at least 1 day away
             formatter.allowedUnits = [.day]
         } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.locale = calendar.locale
-            dateFormatter.dateStyle = .medium
-            dateFormatter.doesRelativeDateFormatting = true
-            
-            return dateFormatter.string(from: self).lowercased()
+            // date is today
+            return "today".localized
         }
         
-        // get timeInterval to avoid negative values
-        let timeInterval = abs(self.timeIntervalSince(Date()))
+        // get absolute timeInterval to avoid negative values
+        let timeInterval = abs(self.timeIntervalSince(today))
         guard let elapsedTime = formatter.string(from: timeInterval) else {
             // this should never fail, but alas, avoiding force unwrap
             return ""
         }
         
         if self > Date() {
-            return "\(NSLocalizedString("in", comment: "date is in the future")) \(elapsedTime)"
+            return "\("in".localized) \(elapsedTime)"
         } else {
-            return "\(elapsedTime) \(NSLocalizedString("ago", comment: "date is in the past"))"
+            return "\(elapsedTime) \("ago".localized)"
         }
     }
 }
