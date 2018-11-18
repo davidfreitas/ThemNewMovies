@@ -26,7 +26,6 @@ class UpcomingMoviesViewModel {
     
     init() {
         service = MovieService()
-        fetchData()
     }
     
     private func fetchData(page: Int = 1) {
@@ -68,7 +67,6 @@ class UpcomingMoviesViewModel {
     }
     
     func loadNextPage() {
-        print("\(currentPage) of \(totalPages)")
         if hasNextPage && !isLoading {
             fetchData(page: currentPage + 1)
         }

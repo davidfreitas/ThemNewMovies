@@ -14,26 +14,28 @@ class GenreManager {
 
     private var genres: [Genre] = []
     
-    func loadGenres() {
+    func loadGenres(completion: @escaping () -> Void) {
         if Storage.fileExists("genres.json", in: .documents) {
             let genres = Storage.retrieve("genres.json", from: .documents, as: [Genre].self)
             self.genres = genres
+            completion()
         }
         
-        fetchData()
+        fetchData(completion: completion)
     }
     
     private func saveGenres() {
         Storage.store(genres, to: .documents, as: "genres.json")
     }
     
-    private func fetchData() {
+    private func fetchData(completion: @escaping () -> Void) {
         let service = GenreService()
         service.getGenres { [weak self] (result) in
             switch result {
             case .success(let genres):
                 self?.genres = genres
                 self?.saveGenres()
+                completion()
             case .error(let error):
                 debugPrint(error)
             }

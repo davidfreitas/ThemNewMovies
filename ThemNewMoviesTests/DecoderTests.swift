@@ -9,7 +9,7 @@
 import XCTest
 @testable import ThemNewMovies
 
-class ModelTests: XCTestCase {
+class DecoderTests: XCTestCase {
 
     // -----
     // Test Movie decoding

@@ -20,4 +20,6 @@
 "year" = "ano";
 "years" = "anos";
 
+"movie" = "Filme";
 "upcomingMovies" = "Próximos Filmes";
+"releaseDate" = "Data de Lançamento";

@@ -20,8 +20,11 @@ class UpcomingMoviesTableViewController: UITableViewController {
 
         self.title = "upcomingMovies".localized
         
-        setupViewModel()
         setupRefreshControl()
+        setupViewModel()
+        GenreManager.shared.loadGenres { [weak self] in
+            self?.viewModel.refresh()
+        }
     }
     
     private func setupViewModel() {
@@ -90,6 +93,18 @@ class UpcomingMoviesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 158
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Show movie details
+        if let detailViewController = MovieDetailsViewController.instanceFromStoryboard() {
+            let movieViewModel = viewModel.getMovieViewModel(index: indexPath.row)
+            detailViewController.viewModel = movieViewModel
+            
+            self.navigationController?.pushViewController(
+                detailViewController,
+                animated: true)
+        }
     }
 
 }

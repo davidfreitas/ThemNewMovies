@@ -17,8 +17,8 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak var genresCollectionView: UICollectionView!
     @IBOutlet weak var genresCollectionViewLayout: UICollectionViewFlowLayout!
     
-    var viewModel: MovieViewModel!
-    var genresCollectionViewHandler = GenreCollectionViewHandler()
+    private var viewModel: MovieViewModel!
+    private let genresCollectionViewHandler = GenreCollectionViewHandler()
     
     override func awakeFromNib() {
         setupGenresCollectionView()

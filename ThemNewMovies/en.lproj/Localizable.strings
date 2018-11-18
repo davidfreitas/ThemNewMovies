@@ -20,4 +20,6 @@
 "year" = "year";
 "years" = "years";
 
+"movie" = "Movie";
 "upcomingMovies" = "Upcoming Movies";
+"releaseDate" = "Release Date";
