@@ -8,15 +8,18 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 
 class HttpClient {
     enum RequestError: Error {
         case invalidMethod
+        case downloadError
     }
 
     // -----
-    // Wrapper method that allows the network engine to be easily replaceable
+    // Wrapper methods that allow the network engine to be easily replaceable
     // -----
+    
     func request(_ url: URL, method: HTTPMethod, parameters: [String : Any]?, headers: [String : String]?, completion: @escaping (NetworkResult<Data>) -> Void) {
         // --
         // Setup Alamofire to handle the network requests
@@ -47,6 +50,24 @@ class HttpClient {
                 completion(.error(error))
             }
         })
+    }
+    
+    func downloadImage(_ url: URL, completion: @escaping (NetworkResult<UIImage>) -> Void) {
+        // --
+        // Setup AlamofireImage to handle the image download
+        // --
+        
+        let downloader = ImageDownloader()
+        let urlRequest = URLRequest(url: url)
+        
+        downloader.download(urlRequest) { response in
+            
+            if let image = response.result.value {
+                completion(.success(image))
+            } else {
+                completion(.error(RequestError.downloadError))
+            }
+        }
     }
     
 }

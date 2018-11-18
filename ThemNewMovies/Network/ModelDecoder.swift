@@ -25,6 +25,7 @@ class ModelDecoder {
             let value = try decoder.decode(T.self, from: data)
             return value
         } catch {
+            debugPrint(error)
             throw error
         }
     }

@@ -33,6 +33,10 @@ class MovieViewModel {
         return movie.overview
     }
     
+    var genres: [Genre] {
+        return GenreManager.shared.getGenres(withIds: movie.genreIds)
+    }
+    
     var releaseYear: String {
         let dateComponents = calendar.dateComponents([.year], from: movie.releaseDate)
         
@@ -49,6 +53,22 @@ class MovieViewModel {
     
     var releaseTimeFromNow: String {
         return movie.releaseDate.getElapsedTime()
+    }
+    
+    func backdropURL(forSize size: BackropSize) -> URL? {
+        guard let backdropPath = movie.backdropPath else {
+            return nil
+        }
+        
+        return URL(string: "\(API.imageBaseURL)\(size)/\(backdropPath)")
+    }
+    
+    func posterURL(forSize size: PosterSize) -> URL? {
+        guard let posterPath = movie.posterPath else {
+            return nil
+        }
+        
+        return URL(string: "\(API.imageBaseURL)\(size)/\(posterPath)")
     }
 
 }

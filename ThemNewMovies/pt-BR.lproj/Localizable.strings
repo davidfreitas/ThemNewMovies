@@ -6,6 +6,8 @@
   Copyright © 2018 David Freitas. All rights reserved.
 */
 
+"apiLanguage" = "pt-BR";
+
 "ago" = "atrás";
 "in" = "em";
 "today" = "hoje";
@@ -17,3 +19,5 @@
 "months" = "meses";
 "year" = "ano";
 "years" = "anos";
+
+"upcomingMovies" = "Próximos Filmes";

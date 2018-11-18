@@ -1,26 +1,24 @@
 //
-//  MovieService.swift
+//  GenreService.swift
 //  ThemNewMovies
 //
-//  Created by David Freitas on 16/11/18.
+//  Created by David Freitas on 17/11/18.
 //  Copyright © 2018 David Freitas. All rights reserved.
 //
 
 import UIKit
 
-class MovieService {
+class GenreService {
     enum ServiceError: Error {
         case invalidURL
     }
     
     // -----
-    // Get upcoming movie releases
-    // Model: UpcomingMovies
+    // Get movie genres
+    // Model: Genre
     // -----
-    func getUpcomingMovies(page: Int, completion: @escaping (NetworkResult<UpcomingMovies>) -> Void) {
-        
-        let urlString = "\(API.upcomingMoviesPath)&page=\(page)"
-        guard let url = URL(string: urlString) else {
+    func getGenres(_ completion: @escaping (NetworkResult<[Genre]>) -> Void) {
+        guard let url = URL(string: API.genresPath) else {
             return completion(.error(ServiceError.invalidURL))
         }
         
@@ -34,8 +32,8 @@ class MovieService {
                 switch result {
                 case .success(let data):
                     do {
-                        let upcoming: UpcomingMovies = try ModelDecoder.decodeJSON(withData: data)
-                        completion(.success(upcoming))
+                        let list: GenreList = try ModelDecoder.decodeJSON(withData: data)
+                        completion(.success(list.genres))
                     } catch {
                         completion(.error(error))
                     }
@@ -44,5 +42,5 @@ class MovieService {
                 }
         }
     }
-
+    
 }
