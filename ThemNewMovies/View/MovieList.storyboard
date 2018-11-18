@@ -39,16 +39,16 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9wM-6p-BHX">
-                                            <rect key="frame" x="115" y="37" width="252" height="19.5"/>
+                                            <rect key="frame" x="115" y="34" width="252" height="19.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eiD-OF-oxb">
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="eiD-OF-oxb">
                                             <rect key="frame" x="44" y="67.5" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HXr-ww-Iwp">
-                                            <rect key="frame" x="115" y="64.5" width="252" height="82"/>
+                                            <rect key="frame" x="115" y="61.5" width="252" height="85"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <collectionViewLayout key="collectionViewLayout" id="GeC-6C-WNJ" customClass="LeftAlignedCollectionViewFlowLayout" customModule="ThemNewMovies" customModuleProvider="target"/>
                                             <cells>
@@ -60,7 +60,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JCx-rz-Csc">
-                                                                <rect key="frame" x="5" y="5" width="96" height="19"/>
+                                                                <rect key="frame" x="5" y="2" width="96" height="25"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -70,8 +70,8 @@
                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="JCx-rz-Csc" firstAttribute="leading" secondItem="qnO-Zt-Wll" secondAttribute="leading" constant="5" id="2GC-8N-yK6"/>
-                                                        <constraint firstItem="JCx-rz-Csc" firstAttribute="top" secondItem="qnO-Zt-Wll" secondAttribute="top" constant="5" id="9re-Dy-2Qk"/>
-                                                        <constraint firstAttribute="bottom" secondItem="JCx-rz-Csc" secondAttribute="bottom" constant="5" id="Qh9-qt-sgX"/>
+                                                        <constraint firstItem="JCx-rz-Csc" firstAttribute="top" secondItem="qnO-Zt-Wll" secondAttribute="top" constant="2" id="9re-Dy-2Qk"/>
+                                                        <constraint firstAttribute="bottom" secondItem="JCx-rz-Csc" secondAttribute="bottom" constant="2" id="Qh9-qt-sgX"/>
                                                         <constraint firstAttribute="trailing" secondItem="JCx-rz-Csc" secondAttribute="trailing" constant="5" id="Z4M-2u-Qcn"/>
                                                     </constraints>
                                                     <size key="customSize" width="106" height="29"/>
@@ -89,7 +89,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="v2Y-pV-nmY" firstAttribute="top" secondItem="lV0-Vz-IST" secondAttribute="top" constant="8" id="7T7-Qe-Wo9"/>
-                                        <constraint firstItem="9wM-6p-BHX" firstAttribute="top" secondItem="dCq-wR-H9H" secondAttribute="bottom" constant="5" id="BlR-2L-QqB"/>
+                                        <constraint firstItem="9wM-6p-BHX" firstAttribute="top" secondItem="dCq-wR-H9H" secondAttribute="bottom" constant="2" id="BlR-2L-QqB"/>
                                         <constraint firstItem="9wM-6p-BHX" firstAttribute="leading" secondItem="v2Y-pV-nmY" secondAttribute="trailing" constant="15" id="EnE-6M-Gve"/>
                                         <constraint firstItem="dCq-wR-H9H" firstAttribute="top" secondItem="v2Y-pV-nmY" secondAttribute="top" id="KBM-3E-Q67"/>
                                         <constraint firstAttribute="bottom" secondItem="HXr-ww-Iwp" secondAttribute="bottom" constant="8" id="P3M-Qe-ff1"/>
@@ -140,6 +140,14 @@
                             <outlet property="delegate" destination="vnd-TO-byh" id="2om-K1-swr"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="ZaY-hX-ehT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="5E9-8S-vFK">
+                            <connections>
+                                <action selector="searchButtonAction:" destination="vnd-TO-byh" id="EU0-mk-g6Y"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OqF-6B-8LG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

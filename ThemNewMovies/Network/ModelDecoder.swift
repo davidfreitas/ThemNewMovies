@@ -19,7 +19,16 @@ class ModelDecoder {
         // Set up api date format
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        decoder.dateDecodingStrategy = .custom({
+            [weak dateFormatter] (decoder) -> Date in
+            let container = try decoder.singleValueContainer()
+            let dateStr = try container.decode(String.self)
+            
+            guard let date = dateFormatter?.date(from: dateStr) else {
+                return Date()
+            }
+            return date
+        })
         
         do {
             let value = try decoder.decode(T.self, from: data)

@@ -12,6 +12,7 @@ enum API {
     fileprivate static let basePath = "https://api.themoviedb.org/3/"
     static let imageBaseURL = "https://image.tmdb.org/t/p/"
     static let upcomingMoviesPath = "\(basePath)movie/upcoming\(apiQuery)"
+    static let searchMoviesPath = "\(basePath)search/movie\(apiQuery)"
     static let genresPath = "\(basePath)genre/movie/list\(apiQuery)"
 }
 
