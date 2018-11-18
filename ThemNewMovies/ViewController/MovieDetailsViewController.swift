@@ -25,6 +25,9 @@ class MovieDetailsViewController: UIViewController {
     
     var viewModel: MovieViewModel!
     
+    // -----
+    // Instantiate the view controller from a storyboard file
+    // -----
     class func instanceFromStoryboard() -> MovieDetailsViewController? {
         let storyboard = UIStoryboard(name: "MovieDetails", bundle: Bundle.main)
         return storyboard.instantiateInitialViewController() as? MovieDetailsViewController
@@ -39,6 +42,8 @@ class MovieDetailsViewController: UIViewController {
         setMovieInfo()
         loadImages()
     }
+    
+    // MARK: - Setup functions
     
     private func setupGenresCollectionView() {
         genresCollectionView.dataSource = genresCollectionViewHandler

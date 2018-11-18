@@ -40,6 +40,8 @@ class UpcomingMoviesTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Setup functions
+    
     private func setupViewModel() {
         LoaderView.show()
         
@@ -90,7 +92,7 @@ class UpcomingMoviesTableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source and delegate
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -154,7 +156,9 @@ class UpcomingMoviesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // -----
         // Show movie details
+        // -----
         if let detailViewController = MovieDetailsViewController.instanceFromStoryboard() {
             let movieViewModel: MovieViewModel!
             
@@ -184,7 +188,6 @@ extension UpcomingMoviesTableViewController: UISearchBarDelegate {
     // -----
     // Search bar delegate
     // -----
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchController.searchBar.text else {
             return
