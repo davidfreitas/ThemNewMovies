@@ -11,6 +11,7 @@ import Foundation
 class UpcomingMoviesViewModel {
 
     public typealias UpdatedClosure = () -> ()
+    public typealias ErrorClosure = (Error) -> ()
     
     private var upcomingMovies: UpcomingMovies? {
         didSet {
@@ -23,6 +24,7 @@ class UpcomingMoviesViewModel {
     private let service: MovieService
     
     public var updatedMovies: UpdatedClosure?
+    public var errorHandler: ErrorClosure?
     
     init() {
         service = MovieService()
@@ -37,8 +39,8 @@ class UpcomingMoviesViewModel {
             case .success(let upcomingMovies):
                 self?.setUpcomingMovies(upcomingMovies)
                 break
-            case .error(_):
-                break
+            case .error(let error):
+                self?.errorHandler?(error)
             }
         }
     }

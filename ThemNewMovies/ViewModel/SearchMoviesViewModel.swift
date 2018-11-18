@@ -11,6 +11,7 @@ import Foundation
 class SearchMoviesViewModel {
 
     public typealias UpdatedClosure = () -> ()
+    public typealias ErrorClosure = (Error) -> ()
     
     private var movieSearch: MovieSearch? {
         didSet {
@@ -24,6 +25,7 @@ class SearchMoviesViewModel {
     private var query: String
     
     public var updatedMovies: UpdatedClosure?
+    public var errorHandler: ErrorClosure?
     
     init() {
         service = MovieService()
@@ -40,8 +42,8 @@ class SearchMoviesViewModel {
             case .success(let movieSearch):
                 self?.setMovieSearch(movieSearch)
                 break
-            case .error(_):
-                break
+            case .error(let error):
+                self?.errorHandler?(error)
             }
         }
     }

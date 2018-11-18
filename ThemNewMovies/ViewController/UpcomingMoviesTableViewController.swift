@@ -13,14 +13,13 @@ class UpcomingMoviesTableViewController: UITableViewController {
     private let cellIdentifier = "MovieCell"
     private let loaderCellIdentifier = "LoaderCell"
 
-    private let searchController = UISearchController(searchResultsController: nil)
     private var viewModel: UpcomingMoviesViewModel!
     private var searchViewModel: SearchMoviesViewModel!
     
+    private let searchController = UISearchController(searchResultsController: nil)
     private var searchBarIsEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
-    
     private var isSearching: Bool {
         return searchController.isActive && !searchBarIsEmpty
     }
@@ -35,6 +34,7 @@ class UpcomingMoviesTableViewController: UITableViewController {
         setupViewModel()
         setupSearchViewModel()
         
+        // Load genres before fetching the movies
         GenreManager.shared.loadGenres { [weak self] in
             self?.viewModel.refresh()
         }
@@ -49,6 +49,9 @@ class UpcomingMoviesTableViewController: UITableViewController {
             self?.refreshControl?.endRefreshing()
             LoaderView.hide()
         }
+        viewModel.errorHandler = { [weak self] (error) in
+            self?.presentError(error)
+        }
     }
     
     private func setupSearchViewModel() {
@@ -57,6 +60,9 @@ class UpcomingMoviesTableViewController: UITableViewController {
             self?.tableView.reloadData()
             self?.refreshControl?.endRefreshing()
             LoaderView.hide()
+        }
+        searchViewModel.errorHandler = { [weak self] (error) in
+            self?.presentError(error)
         }
     }
     
@@ -75,6 +81,13 @@ class UpcomingMoviesTableViewController: UITableViewController {
     
     @objc private func refreshData(_ sender: Any) {
         viewModel.refresh()
+    }
+    
+    private func presentError(_ error: Error) {
+        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        let returnAction = UIAlertAction(title: "return".localized, style: .default, handler: nil)
+        alertController.addAction(returnAction)
+        present(alertController, animated: true, completion: nil)
     }
 
     // MARK: - Table view data source
