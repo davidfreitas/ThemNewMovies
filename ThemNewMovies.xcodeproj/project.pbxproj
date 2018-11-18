@@ -684,6 +684,7 @@
 			baseConfigurationReference = F1E9B6C79B2758D957EC0BC7 /* Pods-ThemNewMovies.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q4XN6L7Y2R;
 				INFOPLIST_FILE = ThemNewMovies/Info.plist;
@@ -694,6 +695,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.davidfreitas.ThemNewMovies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -704,6 +706,7 @@
 			baseConfigurationReference = 0A86629585AA33204B6B7B5F /* Pods-ThemNewMovies.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q4XN6L7Y2R;
 				INFOPLIST_FILE = ThemNewMovies/Info.plist;
@@ -714,6 +717,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.davidfreitas.ThemNewMovies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -728,6 +732,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q4XN6L7Y2R;
 				INFOPLIST_FILE = ThemNewMoviesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -750,6 +755,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q4XN6L7Y2R;
 				INFOPLIST_FILE = ThemNewMoviesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
