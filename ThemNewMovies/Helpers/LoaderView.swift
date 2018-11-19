@@ -2,76 +2,95 @@
 //  LoaderView.swift
 //
 //
-//  Created by David Freitas on 12/16/15.
+//  Created by David Freitas on 18/11/18.
 //  Copyright © 2015 David Freitas. All rights reserved.
 //
 
 import UIKit
 
 class LoaderView: UIView {
-    static let instance: LoaderView = LoaderView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+    // -----
+    // Helper class that shows an activity indicator on the screen
+    // -----
     
-    let activityView = UIActivityIndicatorView()
-    var removing: Bool = false
+    private static var instance: LoaderView?
     
-    override init(frame: CGRect) {
+    private let activityView = UIActivityIndicatorView()
+    private var removing: Bool = false
+    
+    private class func getInstance() -> LoaderView {
+        if instance == nil {
+            instance = LoaderView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        }
+        
+        return instance!
+    }
+    
+    override private init(frame: CGRect) {
         super.init(frame: frame)
         
+        setupView()
+        setupActivityIndicator()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    private func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor(white: 0.0, alpha: 0.5)
-        
+    }
+    
+    private func setupActivityIndicator() {
         activityView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(activityView)
         
+        // set constraints
         activityView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         activityView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         activityView.widthAnchor.constraint(equalToConstant: 50).isActive = true
         activityView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        self.alpha = 1.0
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
-    static func show() {
-        instance.removing = false
-        
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController!
-        
-        while let presentedViewController = rootViewController?.presentedViewController {
-            rootViewController = presentedViewController
-        }
-        
-        self.show(rootViewController!)
+    class func show(inViewController viewController: UIViewController) {
+        show(inView: viewController.view)
     }
     
-    static func show(_ viewController: UIViewController) {
+    class func show(inView view: UIView) {
+        let instance = getInstance()
+        
         instance.removing = false
         instance.activityView.startAnimating()
-
-        let rootView = viewController.view
-        rootView!.addSubview(instance)
         
-        instance.topAnchor.constraint(equalTo: rootView!.topAnchor).isActive = true
-        instance.bottomAnchor.constraint(equalTo: rootView!.bottomAnchor).isActive = true
-        instance.leadingAnchor.constraint(equalTo: rootView!.leadingAnchor).isActive = true
-        instance.trailingAnchor.constraint(equalTo: rootView!.trailingAnchor).isActive = true
+        view.addSubview(instance)
         
-        UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            instance.alpha = 1.0
+        // set constraints
+        instance.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        instance.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        instance.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        instance.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        // fade in
+        UIView.animate(withDuration: 0.3, animations: { [weak instance] in
+            instance?.alpha = 1.0
         })
     }
     
-    static func hide() {
+    class func hide() {
+        guard let instance = instance else {
+            return
+        }
+        
         instance.removing = true
-        UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            instance.alpha = 0.0
-            }, completion: { (finished) -> Void in
-                if instance.removing {
-                instance.activityView.stopAnimating()
-                instance.removeFromSuperview()
+        
+        // fade out
+        UIView.animate(withDuration: 0.3, animations: { [weak instance] () -> Void in
+            instance?.alpha = 0.0
+            }, completion: { [weak instance] (finished) -> Void in
+                if let instance = instance, instance.removing {
+                    instance.activityView.stopAnimating()
+                    instance.removeFromSuperview()
                 }
         }) 
     }

@@ -43,7 +43,9 @@ class UpcomingMoviesTableViewController: UITableViewController {
     // MARK: - Setup functions
     
     private func setupViewModel() {
-        LoaderView.show()
+        if let navController = navigationController {
+            LoaderView.show(inViewController: navController)
+        }
         
         viewModel = UpcomingMoviesViewModel()
         viewModel.updatedMovies = { [weak self] in
@@ -193,7 +195,10 @@ extension UpcomingMoviesTableViewController: UISearchBarDelegate {
             return
         }
         
-        LoaderView.show()
+        if let navController = navigationController {
+            LoaderView.show(inViewController: navController)
+        }
+        
         searchViewModel.setQuery(query: query)
         searchViewModel.refresh()
     }
